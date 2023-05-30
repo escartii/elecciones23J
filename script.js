@@ -353,5 +353,30 @@ function guardarTitulo() {
     tituloElemento.innerText = nuevoTitulo;
     cerrarDialogo();
 }
+
+const puppeteer = require('puppeteer');
+
+async function convertirHtmlAPdf(htmlPath, outputPath) {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  
+  // Cargar el archivo HTML en la página
+  await page.goto(`file:/${htmlPath}`, { waitUntil: 'networkidle0' });
+  
+  // Esperar a que el contenido se cargue completamente
+  await page.waitForSelector('body');
+  
+  // Generar el archivo PDF
+  await page.pdf({ path: outputPath, format: 'A4' });
+  
+  // Cerrar el navegador
+  await browser.close();
+}
+
+// Ejemplo de uso
+convertirHtmlAPdf('Users/escartii/Desktop/Elecciones/elecciones23J/index.html', '/Users/escartii/Desktop/GitHub/prueba.pdf')
+  .then(() => console.log('HTML convertido a PDF con éxito'))
+  .catch(error => console.error('Error al convertir HTML a PDF:', error));
+
   
 
