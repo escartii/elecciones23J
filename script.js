@@ -353,7 +353,7 @@ function guardarTitulo() {
     tituloElemento.innerText = nuevoTitulo;
     cerrarDialogo();
 }
-
+// Libreria que necesitamos para la exportación
 const puppeteer = require('puppeteer');
 
 async function convertirHtmlAPdf(htmlPath, outputPath) {
